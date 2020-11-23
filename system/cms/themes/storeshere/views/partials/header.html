@@ -1,0 +1,418 @@
+<header id="webheader" class="webheader">
+    <div class="container">
+        <div class="row">
+            <div class="header-wrap">
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <div class="logo">
+                        <a href="<?php echo base_url();?>">
+                            <img src="<?php echo base_url(); ?>system/cms/themes/storeshere/img/logo.png" alt="Stores Here Inmate Funds" style="height: 100px;">
+                        </a>
+                    </div>
+                    <div class="subheading-logo"><h1>EASY AND CONVENIENT WAY TO GET YOUR INMATE FUNDS</h1></div>
+
+                </div>
+                <div class="col-md-offset-2 col-md-2 col-sm-offset-2 col-sm-2 col-xs-12">
+                    <div class="heading-login-wrap">
+                        <?php if(is_logged_in()) :?>
+                            <?php  $info = $this->current_user;?>
+                            <div class="user-info-wrap">
+                                <span><?php echo ucfirst($info->first_name).' '.ucfirst($info->last_name)?></span>
+                                <span><?php echo $info->mobile;?></span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="signup-button-wrap">
+                                <a href="<?php echo base_url();?>users/logout">Logout</a>
+                            </div>
+                        <?php else :?>
+                            <div class="form-login">
+                                <?php //echo form_open('users/login', array('id' => 'login')) ?>
+                                    <!--<div class="input-group">-->
+                                    <!--    <label class="top-login">Login</label>-->
+                                    <!--    <input name="username" type="text" placeholder="Enter Your Username"><br>-->
+                                    <!--</div>-->
+                                    <!--<div class="spacer10"></div>-->
+                                    <!--<div class="input-group">-->
+                                    <!--    <label>Password</label>-->
+                                    <!--    <input name="password" type="password" placeholder="Enter Your Password"><br>-->
+                                    <!--    <div class="send-button">-->
+                                    <!--        <input type="submit" name="submit" value="">-->
+                                    <!--    </div>-->
+                                    <!--</div>-->
+                                    <!--<div class="login-res"></div>-->
+                                    <!--<div class="forgot-password">-->
+                                    <!--    <a class="forget-pass">FORGOT PASSWORD</a>-->
+                                    <!--</div>-->
+                                <?php //echo form_close(); ?>
+                                <div class="signup-button-wrap">
+                                    <a id="showBtnLogin">
+                                        Login
+                                    </a>
+                                </div>
+                                <div class="signup-button-wrap">
+                                    <a href="<?php echo base_url();?>signup">
+                                        Sign Up Free
+                                    </a>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<header class="mobileheader">
+    <div class="logo-mobile">
+        <div class="logo-inner">
+            <img alt="" src="<?php echo base_url(); ?>system/cms/themes/storeshere/img/logo.png">
+        </div>
+    </div>
+    <div class="right">
+        <ul>
+            <!-- <li data-tab="tab-3" class="search-mobile">
+                <span class="mobile-menu-icons"></span>
+            </li> -->
+            <li data-tab="tab-1" class="login-mobile">
+                <span class="mobile-menu-icons"></span>
+            </li>
+            <li data-tab="tab-2" class="menu-icon">
+                <span class="mobile-menu-icons" id="heds"></span>
+            </li>
+          
+        </ul>
+    </div>
+    <div data-tab="tab-1" id="tab-1" class="menu-slider">
+        <div class="heading-login-wrap">
+            <?php if(is_logged_in()) :?>
+                <?php  $info = $this->current_user;?>
+                <div class="user-info-wrap">
+                    <span><?php echo ucfirst($info->first_name).' '.ucfirst($info->last_name)?></span>
+                    <span><?php echo $info->mobile;?></span>
+                </div>
+                <div class="clearfix"></div>
+                <div class="signup-button-wrap">
+                    <a href="<?php echo base_url();?>users/logout">Logout</a>
+                </div>
+            <?php else :?>
+                <div class="form-login">
+                <?php echo form_open('users/login', array('id' => 'mob-login')) ?>
+                    <div class="input-group">
+                        <label>Login</label>
+                        <input name="username" type="text" placeholder="Enter Your Username">
+                    </div>
+                    <div class="spacer10"></div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input name="password" type="password" placeholder="Enter Your Password">
+                        <div class="send-button">
+                            <input type="submit" name="submit" value="">
+                        </div>
+                    </div>
+                    <div class="login-res"></div>
+                    <div class="forgot-password">
+                        <a class="forget-pass">FORGOT PASSWORD</a>
+                    </div>
+                    <?php echo form_close(); ?>
+                    <div class="signup-button-wrap">
+                        <a href="<?php echo base_url();?>signup">
+                            Sign Up Free
+                        </a>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+    <div data-tab="tab-2" id="tab-2" class="menu-slider">
+        <ul>
+            <li><a href="<?php echo base_url();?>">HOME</a></li>
+            <li><a href="<?php echo base_url();?>aboutUs">ABOUT</a></li>
+            <li><a href="<?php echo base_url(); ?>fundingOptions">FUNDING OPTIONS</a></li>
+           <li>
+                <?php if(is_logged_in()){ ?>
+                    <a href="<?php echo base_url();?>sendFunds" <?php if($segment == 'sendFunds' || $segment == 'paypal_success'){ ?> class="activebtn" <?php } ?> >
+                        SEND FUNDS
+                    </a>
+                <?php }else{ ?>
+                    <a id="showSendFund" <?php if($segment == 'sendFunds' || $segment == 'paypal_success'){ ?> class="activebtn" <?php } ?> >
+                        SEND FUNDS
+                    </a>
+                <?php } ?>                
+            </li>
+            <li>
+                <?php if(is_logged_in()){ ?>
+                    <a href="<?php echo base_url();?>sendPhotos" <?php if($segment == 'sendPhotos'){ ?> class="activebtn" <?php } ?> >
+                        SEND PHOTOS
+                    </a>
+                <?php }else{ ?>
+                    <a id="showSendPhotos" <?php if($segment == 'sendPhotos'){ ?> class="activebtn" <?php } ?> >
+                        SEND PHOTOS
+                    </a>
+                <?php } ?>
+                
+            </li>
+            <?php if(is_logged_in()) :?>
+                <li>
+                    <a href="<?php echo base_url();?>profile" <?php if($segment == 'profile'){ ?> class="activebtn" <?php } ?> >
+                        MY PROFILE
+                    </a>
+                </li>
+            <?php endif; ?>
+            <li>
+                <a href="<?php echo base_url();?>contact" <?php if($segment == 'contact'){ ?> class="activebtn" <?php } ?> >
+                    CONTACT
+                </a>
+            </li>
+        </ul>
+    </div>
+<!--     <div data-tab="tab-3" id="tab-3" class="menu-slider">
+        <div class="search-header">
+            <input type="text" id="search-feild" name="s" value="" placeholder="search">
+            <input type="submit" value="Search" id="searchsubmit">
+        </div>
+    </div> -->
+
+</header>
+
+<div class="container menus">
+<?php
+    $segment = $this->uri->segment(1);
+?>
+    <nav>        
+        <ul>
+         <li>
+                <a href="<?php echo base_url();?>" <?php if($segment == 'home' || $segment == ''){ ?> class="activebtn" <?php } ?> >
+                    HOME
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo base_url();?>aboutUs" <?php if($segment == 'aboutUs'){ ?> class="activebtn" <?php } ?> >
+                    ABOUT
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo base_url(); ?>fundingOptions">
+                    FUNDING OPTIONS
+                </a>
+            </li>
+            <li>
+                <?php if(is_logged_in()){ ?>
+                    <a href="<?php echo base_url();?>sendFunds" <?php if($segment == 'sendFunds' || $segment == 'paypal_success'){ ?> class="activebtn" <?php } ?> >
+                        SEND FUNDS
+                    </a>
+                <?php }else{ ?>
+                    <a id="showSendFund" <?php if($segment == 'sendFunds' || $segment == 'paypal_success'){ ?> class="activebtn" <?php } ?> >
+                        SEND FUNDS
+                    </a>
+                <?php } ?>                
+            </li>
+            <li>
+                <?php if(is_logged_in()){ ?>
+                    <a href="<?php echo base_url();?>sendPhotos" <?php if($segment == 'sendPhotos'){ ?> class="activebtn" <?php } ?> >
+                        SEND PHOTOS
+                    </a>
+                <?php }else{ ?>
+                    <a id="showSendPhotos" <?php if($segment == 'sendPhotos'){ ?> class="activebtn" <?php } ?> >
+                        SEND PHOTOS
+                    </a>
+                <?php } ?>
+                
+            </li>
+            <?php if(is_logged_in()) :?>
+                <li>
+                    <a href="<?php echo base_url();?>profile" <?php if($segment == 'profile'){ ?> class="activebtn" <?php } ?> >
+                        MY PROFILE
+                    </a>
+                </li>
+            <?php endif; ?>
+            <li>
+                <a href="<?php echo base_url();?>contact" <?php if($segment == 'contact'){ ?> class="activebtn" <?php } ?> >
+                    CONTACT
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div class="container mobile-subheading">
+    <div class="row">
+        <div class="subheading-logo"><h1>EASY  AND CONVENIENT WAY TO GET YOUR INMATE FUNDS</h1></div>
+    </div>
+</div>
+
+<div class="fancybox overlay-container" id="forget_box">
+    <div id="resetBox">
+        <h2>Reset your password</h2>
+        <hr><p style="color:green; text-align:center;display:none;" id="forget_pass_msg"></p>
+        <form action="<?php echo base_url();?>users/reset_pass" method="post" role="form" id="forget_form" novalidate="novalidate" class="popup_form">
+            <div class="valid-error">
+                <label style="padding:0px;" for="email_login"> Email or Phone </label>
+                <input type="text" placeholder="Mobile Number or Email" id="email_forget" name="email" autocomplete="off">
+            </div>
+            <div class="signup-button-wrap2" onclick="validateforgetPass()" style="width: 0px; float: right;"> 
+                <span>
+                    <button class="btn btn-highlight" type="submit" id="forget_btn"> Send </button>
+                </span>
+            </div> 
+        </form>
+    </div>
+
+    <div id="resetSuccess" style="display: none;">
+        <h2>Reset successfull</h2>
+        <hr>
+        <div>
+            <p style="color:green !important;">Please check your e-mail in order to reset your password</p>
+        </div>
+        <section>
+            <button onclick="resetMailSent()" type="button" class="btn btn-highlight">Okay</button>
+        </section>
+    </div>
+</div>
+
+<div class="fancybox overlay-container" id="login_box" style="display:none; z-index: 99999;">
+    <div id="resetBox">
+        <h2>Login to your storeshere account</h2>
+        <hr><p style="color:green; text-align:center;display:none;" id="login_msg"></p>
+        <form class="popup_form" action="<?php echo base_url();?>users/login" method="post" id="login_form">
+            <div class="valid-error">
+                <label style="padding:0px;" for="email_login"> Username </label>
+                <input type="text" placeholder="Enter your username" id="email_forget" name="username" autocomplete="off">
+            </div>
+            <div class="valid-error">
+                <label style="padding:0px;" for="email_login"> Password </label>
+                <input type="password" placeholder="Enter your password" id="password" name="password" autocomplete="off">
+            </div>
+            
+            <div class="signup-button-wrap2 fl-left" style="float: left; min-width: 125px;">                 
+                <button class="transparent" type="submit" id="login"> 
+                    <span>Login</span>
+                </button>                
+            </div>
+            <div class="forgot-password" style="/*width: 50px !important;*/ float: right; padding: 5px; letter-spacing: -1px; margin: 8px 0 0 0;">
+                <a class="forget-pass">FORGOT PASSWORD</a>
+            </div>
+            <div style="clear: both;">To send money to an inmate you should have a active storeshere account.  
+                see our <a href="<?php echo base_url(); ?>fundingOptions">Funding Options</a> .</div>
+             <hr>   
+            <div class="signup-button-wrap" style="float: right; width: 20px !important;">
+                <a href="<?php echo base_url();?>signup" style="background-color: #37CFFE; color: #fff;">
+                    Sign Up Free
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $('#login_form').validate({
+            rules : {
+                username : {
+                    required : true,
+                },
+                password : {
+                    required : true
+                }
+            },
+            messages : {
+                username : {
+                    required : "Please Enter username",
+                },
+                password : {
+                    required : "Please Enter Password"
+                }
+            },
+            showErrors: function(errorMap, errorList) {
+
+                jQuery.each(this.validElements(), function (index, element) {
+                    var $element = jQuery(element);
+                    $element.closest('.valid-error').find('.error_box').remove();                
+                });
+                jQuery.each(errorList, function (index, error) {
+                    var $element = jQuery(error.element);
+                    var errortext = "<div class=\'error_box\'><p class=\'error_text\'>"+error.message+"</p></div>";
+                    if($element.closest('.valid-error').find('.error_box').length >= 1){
+                       $element.closest('.valid-error').find('.error_box').remove();
+                    }
+                    $element.closest('.valid-error').append(errortext);
+                });
+            }
+        });
+
+        $('#login_form').ajaxForm({
+            beforeSubmit : validateLogin,
+            success :  validateLogin_res,
+        });
+
+    });
+
+    function validateLogin(){
+        return $('#login_form').valid();
+    }
+
+    function IsJsonString(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    function validateLogin_res(res){
+        console.log(which_click);
+        if(res){
+            var test = IsJsonString(res);
+            if(test == true){
+                var parse = $.parseJSON(res);
+                if(parse.status && test == true){
+                    if(which_click == 'fund'){
+                        window.location = Base_URL+'sendFunds';
+                    }else{
+                        window.location = Base_URL+'sendPhotos';
+                    }
+                }
+            }
+            if(test == false){
+                var message = "invalid login";
+                var msg = '<p>Wrong username or password</p>';
+                $('#login_msg').html(msg).show();
+                // $.fancybox.close();
+                // $('.fancybox #load').remove();
+            }
+        }
+    }
+</script>
+
+<style>
+#login_msg{
+    background-color: rgba(255, 0, 0, 0.8);
+    border-radius: 6px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+}
+#login_msg p {padding: 4px;}
+#forget_pass_msg {
+    background-color: rgba(255, 0, 0, 0.8);
+    border-radius: 6px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    color: #ffffff !important;
+}
+#forget_pass_msg p {padding: 4px;}
+.login-res {
+    background-color: rgba(255, 0, 0, 0.8);
+    border-radius: 6px;
+    margin-left: 145px;
+    padding: 0;
+    text-align: center;
+    width: 215px;
+    color: #ffffff !important;   
+}
+.login-res p {padding: 4px;}
+</style>

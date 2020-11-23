@@ -1,0 +1,18 @@
+/** CSS For Inactive-Active Button **/
+
+label.toggle-switch {display: inline-block;height: 23px; width: 100px;padding: 1px;border: 1px solid #000;border-radius: 5px;background-color: #7dc85b;line-height: 23px;text-align: center;color: #fff;font-weight: bold;}
+label.toggle-switch input {display: none;}
+label.toggle-switch span {display: inline-block;float: left;width: 37px; height: 23px;background-color: #EEE;border-radius: 5px;}
+label.toggle-switch:after {content: 'Inactive';margin: 0 5px;}
+label.toggle-switch.on span {float: right;}
+label.toggle-switch.on:after {content: 'Active';margin: 0 5px;}
+
+
+/** CSS For Yes-NO Button **/
+
+label.toggle-switch-yn {display: inline-block;height: 23px; width: 75px;padding: 1px;border: 1px solid #000;border-radius: 5px;background-color: #7dc85b;line-height: 23px;text-align: center;width:auto;color: #fff;font-weight: bold;}
+label.toggle-switch-yn input {display: none;}
+label.toggle-switch-yn span {display: inline-block;float: left;width: 37px; height: 23px;background-color: #EEE;border-radius: 5px;}
+label.toggle-switch-yn:after {content: 'No';margin: 0 5px;}
+label.toggle-switch-yn.on span {float: right;}
+label.toggle-switch-yn.on:after {content: 'Yes';margin: 0 5px;} 

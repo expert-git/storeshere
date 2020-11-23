@@ -1,0 +1,329 @@
+<html>
+
+    <head>
+        <link rel="stylesheet" href="assets/css/main.css"/>
+        <link rel="stylesheet" href="highlight/prism.css"/>
+
+        <style>
+
+            code {
+                height: auto !important;
+            }
+
+            h1 {
+                text-align: center;
+                margin: 40px 0;
+                border-bottom: 1px solid #AAA;
+                padding-bottom: 5px;
+            }
+
+            img {
+                cursor: pointer;
+                margin-bottom: 10px;
+            }
+
+            body {
+                overflow: auto !important;
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+        <section class="container">
+            <h1>Basic Usage</h1>
+
+            <section class="row">
+                <div class="col-sm-4">
+                    <img id="edit-me" class="img-responsive" src="photos/1.jpg" alt=""/>
+                </div>
+                <div class="col-sm-8">
+                    <h3>Include JS</h3>
+                    <pre class="language-markup"><code>&lt;!-- Ideally before closing body tag -->
+&lt;script data-preload="true" data-path="pixie" src="assets/js/pixie-integrate.js">&lt;/script></code></pre>
+
+                    <p><code>data-preload="true"</code> is optional. Use it to preload all the pixie assets with the initial page load. Without this attribute assets will be loaded when the editor is first shown. It will take slightly longer for editor to appear withtout it, but the initial page load will be faster.</p>
+                    <p>Use <code>data-path="yourPathHere"</code> to specify the path to pixie folder on your server. It's optional and will default to <strong>pixie</strong>.</p>
+
+                    <h3>Initiate and Open Pixie</h3>
+                    <div>Click button on the left for a basic usage demo.</div>
+                    <pre class="language-markup"><code>&lt;script>
+    var myPixie = Pixie.setOptions({
+        replaceOriginal: true,
+        appendTo: 'body'
+    });
+
+    $('#edit-me').on('click', function(e) {
+        myPixie.open({
+            url: e.target.src,
+            image: e.target
+        });
+    });
+&lt;/script></code></pre>
+                </div>
+            </section>
+
+            <section>
+                <h1>Example for saving modified image server-side with PHP</h1>
+
+                <h3>Javascript</h3>
+<pre class="language-javascript"><code>
+var myPixie = Pixie.setOptions({
+    onSave: function(data, img) {
+        $.ajax({
+            type: 'POST',
+            url: '/save-image.php',
+            data: { imgData: data },
+        }).success(function(response) {
+            alert('image saved successfully!');
+        });
+    }
+});</code></pre>
+
+            <h3>PHP</h3>
+                <pre class="language-php"><code>//save-image.php
+
+&lt;?php
+
+    $data = file_get_contents($_REQUEST['imgData']);
+
+    file_put_contents('image.jpg', $data);
+
+?>
+                </code></pre>
+
+
+            </section>
+
+
+            <section>
+                <h1>Interactive Mode</h1>
+
+                <ul class="list-unstyled row">
+                    <li class="col-sm-4"><img class="img-responsive" src="photos/1.jpg"/></li>
+                    <li class="col-sm-4"><img class="img-responsive" src="photos/2.jpg"/></li>
+                    <li class="col-sm-4"><img class="img-responsive" src="photos/3.jpg"/></li>
+                    <li class="col-sm-4"><img class="img-responsive" src="photos/4.jpeg"/></li>
+                    <li class="col-sm-4"><img class="img-responsive" src="photos/5.jpg"/></li>
+                    <li class="col-sm-4"><img class="img-responsive" src="photos/6.jpg"/></li>
+                </ul>
+                <div class="row">
+                    <p>Interactive mode will automatically open images in specified container when they are clicked and replace them with edited ones once user saves.</p>
+<pre class="language-markup"><code>&lt;script>
+    var myPixie = Pixie.setOptions({
+        replaceOriginal: true,
+        appendTo: 'body'
+    });
+
+    myPixie.enableInteractiveMode({
+        selector: '.img-responsive',
+        container: '#images',
+        preventDefault: true
+    });
+&lt;/script></code></pre>
+                </div>
+            </section>
+            <h1>Options, Callbacks, Methods</h1>
+
+            <section class="row">
+                <h3>Options</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>url</code></td>
+                            <td><code>false</code></td>
+                            <td>Url of image to load into editor. Can be relative or absolute.</td>
+                        </tr>
+                        <tr>
+                            <td><code>enableCORS</code></td>
+                            <td><code>false</code></td>
+                            <td>Whether or not pixie should assume that image is cross-domain enabled. With set to false pixie will use image laundering service to fetch image trough domains which will be slower (no laundering will occur if image is hosted on the same domain as pixie).</td>
+                        </tr>
+                        <tr>
+                            <td><code>forceLaundering</code></td>
+                            <td><code>false</code></td>
+                            <td>Setting this to true will force image laundering even if image is hosted on the same domain.</td>
+                        </tr>
+                        <tr>
+                            <td><code>path</code></td>
+                            <td><code>pixie</code></td>
+                            <td>Path to or the name of pixie folder on your server.</td>
+                        </tr>
+                        <tr>
+                            <td><code>saveUrl</code></td>
+                            <td><code>false</code></td>
+                            <td>Edited image data will be sent to this url via ajax post request on save.</td>
+                        </tr>
+                        <tr>
+                            <td><code>replaceOriginal</code></td>
+                            <td><code>false</code></td>
+                            <td>Whether or not passed in (or clicked on in interactive mode) image DOM node should be replace with modified one after saving.</td>
+                        </tr>
+                        <tr>
+                            <td><code>appendTo</code></td>
+                            <td><code>body</code></td>
+                            <td>What element pixie container should be appended to in the DOM. Should be a string that is acceptable by <code>document.querySelector()</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>noManualClose</code></td>
+                            <td><code>false</code></td>
+                            <td>When this is set to <code>true</code> editor will not be automatically closed when clicking on backdrop and the close button will not be visible.</td>
+                        </tr>
+                        <tr>
+                            <td><code>openDelay</code></td>
+                            <td><code>400</code></td>
+                            <td>Fade In delay in milliseconds when opening the editor.</td>
+                        </tr>
+                        <tr>
+                            <td><code>closeDelay</code></td>
+                            <td><code>400</code></td>
+                            <td>Fade out delay in milliseconds when closing the editor.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Callbacks</h3>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>onSave</code></td>
+                            <td><p>Called after image is fully processed and ready to be saved.</p>
+                                <pre class="language-javascript"><code>
+var myPixie = Pixie.setOptions({
+    appendTo: 'body',
+    onSave: function(data, img) {
+        data //base64 encoded image data
+        img  //img element with src set to image data
+    }
+});</code></pre>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td><code>onLoad</code></td>
+                            <td><p>Called after all editor assets are fully loaded and it's ready to be shown.</p>
+                                <pre class="language-javascript"><code>
+var myPixie = Pixie.setOptions({
+    appendTo: 'body',
+    onLoad: function(container, rootScope, window) {
+        container //Top-most DOM node of the editor
+        rootScope  //You should get familiarized with angular.js and pixie source code before using this.
+        window //pixie iframe window element
+    }
+});</code></pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code>onError</code></td>
+                            <td><p>Called after all an error occurs in the editor. Will log error object to console by default.</p>
+                                <pre class="language-javascript"><code>
+var myPixie = Pixie.setOptions({
+    onError: function(err) {
+        err //error object
+    }
+});</code></pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code>onSaveButtonClick</code></td>
+                            <td>
+                                <p>Called after save button is clicked in the editor. If you pass in this callback the dialog window with image quality, name etc will not be shown and you will need to save it manualy.</p>
+                                <pre class="language-javascript"><code>
+var myPixie = Pixie.setOptions({
+    onSaveButtonClick: function() {
+        myPixie.save(format, quality);
+        //format - png or jpeg
+        //quality - 1 to 10
+    }
+});</code></pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code>onClose</code></td>
+                            <td><p>Called after editor is closed. No parameters are passed in.</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="row">
+                <h3>Methods</h3>
+                <p>All methods should be called on the instance that is ruturned from <code>Pixie.setOptions({})</code></p>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>.open(options)</code></td>
+                            <td>Open image editor. Can pass in all options described above.</td>
+                        </tr>
+                        <tr>
+                            <td><code>.close()</code></td>
+                            <td>Close the editor.</td>
+                        </tr>
+                        <tr>
+                            <td><code>.enableInteractiveMode(options)</code></td>
+                            <td>Enable interactive mode. Look for example above.</td>
+                        </tr>
+                        <tr>
+                            <td><code>.getParams(options)</code></td>
+                            <td>Get current pixie parameters.</td>
+                        </tr>
+                        <tr>
+                            <td><code>.setOptions(options)</code></td>
+                            <td>Set options. Can do it via <code>open(options)</code> as will, but it will open the editor.</td>
+                        </tr>
+                        <tr>
+                            <td><code>.save(format, quality)</code></td>
+                            <td>Manually save image currently open in the editor. Will trigger all callbacks normal save would.</td>
+                        </tr>
+                        <tr>
+                            <td><code>.getService(name)</code></td>
+                            <td>Get an angular.js service instance. Familiarity with angular.js recommended.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+        </section>
+    </section>
+
+
+    </body>
+
+    <script src="highlight/prism.js"></script>
+    <script src="assets/js/vendor/jquery.js"></script>
+    <script data-path="" src="assets/js/pixie-integrate.js"></script>
+
+    <script>
+        var myPixie = Pixie.setOptions({
+            replaceOriginal: true
+        });
+        myPixie.enableInteractiveMode();
+
+        $('#edit-me').on('click', function(e) {
+            myPixie.open({
+                url: e.target.src,
+                image: e.target
+            });
+        });
+    </script>
+
+</html>

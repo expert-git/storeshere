@@ -1,0 +1,9 @@
+.env
+.coverate
+/bin
+/core
+/build
+/vendor
+/coverage
+/node_modules
+/bower_components

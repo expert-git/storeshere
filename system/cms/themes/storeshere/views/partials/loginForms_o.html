@@ -1,0 +1,407 @@
+<link rel="stylesheet" type="text/css" href="<?php echo base_url().$this->template->get_theme_path();?>css/table/dataTable.css">
+<style type="text/css">
+.btn-a{
+    margin-left: 10px;
+}
+.centerTd{
+    text-align: center;
+}   
+
+</style>
+
+<div class="content-widget slideDiv" id="updateProfileDiv" <?php if($show == 0){ echo 'style="display:none"';}?> >
+    <?php echo form_open('updateProfile', array('id' => 'updateProfileForm','class'=>'signup horizontal-form')) ?>
+       <div class="components">
+            <div class="signup-title">
+                <h1>Profile Details</h1>
+            </div>
+            <div class="spacer10"></div>
+            <div class="groups ">
+                <div class="input-group label_width">
+                    <label class="user-profile-label">UserName (UserNombre)<font style="color:red;">*</font>:</label>
+                    <input type="text" placeholder="" name="username" readonly class="inputw310" value="<?php echo $user[0]['username']; ?>" disabled>
+                </div>
+                <div class="input-group label_width">
+                    <label class="user-profile-label">First Name (Nombre)<font style="color:red;">*</font>:</label>
+                    <input type="text" placeholder="" name="first_name" class="inputw310" value="<?php echo ucfirst($profile[0]['first_name']);?>">
+                </div>
+                <div class="input-group label_width">
+                    <label class="user-profile-label">Middle Name (Sequndo Nombre):</label>
+                    <input type="text" placeholder="" name="middle_name" class="inputw310" value="<?php echo ucfirst($profile[0]['middle_name']);?>">
+                </div>
+                <div class="input-group label_width">
+                    <label class="user-profile-label">Last Name (Apellido)<font style="color:red;">*</font>:</label>
+                    <input type="text" placeholder="" name="last_name" class="inputw310" value="<?php echo ucfirst($profile[0]['last_name']);?>">
+                </div>
+                <div class="input-group label_width">
+                    <label class="user-profile-label">Address (Addresso)<font style="color:red;">*</font>:</label>
+                    <textarea name="address" rows="50" cols="30" class="inputw310"><?php echo ucfirst($profile[0]['street_address']);?></textarea>
+                </div>
+                <div class="input-group label_width">
+                    <label class="user-profile-label">Email (Emailio)<font style="color:red;">*</font>:</label>
+                    <input type="text" placeholder="" id="email" name="email" class="inputw310" value="<?php echo ucfirst($user[0]['email']);?>" 
+                    autocomplete="off">
+                </div>
+                <div class="input-group label_width">
+                    <label class="user-profile-label">Zip Code(Código Postal)<font style="color:red;">*</font>:</label>
+                    <input type="text" placeholder="" id="postcod" name="postcode" class="inputw310" value="<?php echo $profile[0]['postcode'];?>" 
+                    autocomplete="off">
+                </div>
+                <div class="input-group label_width">
+                    <label class="user-profile-label">City (Ciudad):</label>
+                    <input type="text" placeholder="" id="city" name="city" class="inputw310" value="<?php echo $profile[0]['city'];?>">
+                </div>
+                <div class="input-group label_width">
+                    <label class="user-profile-label">State (Estado):</label>
+                    <input type="text" placeholder="" id="state" name="state" class="inputw310" value="<?php echo $profile[0]['state'];?>">
+                </div>
+                <div class="input-group label_width">
+                    <label class="user-profile-label">Country (Pais):</label>
+                    <input type="text" placeholder="" id="country" name="country" class="inputw310" value="<?php echo $profile[0]['country'];?>">
+                </div>
+                <div class="input-group label_width">
+                    <label class="user-profile-label">Cell/Phone (Teléfono Celular)<font style="color:red;">*</font>:</label>
+                    <input type="text" placeholder="" name="mobile" class="inputw310" value="<?php echo $profile[0]['mobile'];?>">
+                </div>
+                <div class="input-group label_width notification-box">
+                    <label class="user-profile-label">How do you want to receive notification(¿Cómo desa recibir la notificatión?)<font style="color:red;">*</font>:</label>
+
+                    <input type="radio" name="notify" value="1" <?php if($profile[0]['notified_by'] == 1) echo 'checked' ;?>><span>By Mail</span>
+                    <input type="radio" name="notify" value="2" <?php if($profile[0]['notified_by'] == 2) echo 'checked' ;?>><span>By Message</span>
+                    <input type="radio" name="notify" value="3" <?php if($profile[0]['notified_by'] == 3) echo 'checked' ;?>><span>Both</span>
+                </div>
+                <div class="input-group label_width">
+                     <div class="pd" id="submitDiv">
+                         <div class="signup-button-wrap2 fl-left">
+                            <!-- <a style="cursor:pointer;">Sign Up Free</a> -->
+                            <button class="transparent" type="submit">
+                                <span>
+                                    Update
+                                </span>
+                            </button>                            
+                         </div>
+                         <div class="form-res" style="display: none;"></div>
+                         <div class="clearfix"></div>
+                     </div>
+                     <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+       </div>
+       <div class="clearfix"></div>
+    <?php echo form_close();?>
+</div>
+
+<div class="content-widget slideDiv" id="addInmatesDiv" style="display:none">
+    <?php echo form_open('addInmates', array('id' => 'addInmatesForm','class'=>'signup horizontal-form')) ?>
+       <div class="components">
+            <div class="signup-title">
+                <h1>Add Inmates</h1>
+            </div>
+            <div class="spacer10"></div>
+            <div class="groups">
+                <div class="input-group">
+                    <label class="inmate-label">Inmate Name (anombre del Reciouso)<font style="color:red;">*</font>:</label>
+                    <input type="text" placeholder="" name="name" class="inputw310" maxlength="30">
+                </div>
+                <div class="input-group">
+                    <label class="inmate-label">Booking Number (número de reserva)<font style="color:red;">*</font>:</label>
+                    <input type="text" placeholder="" id="bookingId" name="bookingId" class="inputw310" maxlength="15">
+                </div>
+                <div class="input-group">
+                    <label class="inmate-label">Confirm Booking No. (confirmar número de reserva)<font style="color:red;">*</font>:</label>
+                    <input type="text" placeholder="" name="c_bookingId" class="inputw310" maxlength="15">
+                </div>
+                <div class="input-group">
+                    <label class="inmate-label">Facility (Instalaciones)<font style="color:red;">*</font>:</label>
+                    <select id="facility" name="facility" class="inputw310 facilityList">
+                        <option value="">Select Facility</option>
+                        <?php if(!empty($facility)) :?>
+                            <?php foreach($facility as $k => $v) :?>
+                                 <option value="<?php echo $v['id']?>">
+                                    <?php echo $v['name'];?>
+                                 </option>
+                            <?php endforeach; ?> 
+                        <?php endif; ?>    
+                    </select>
+                    <!-- <input type="text" placeholder="" name="facility" class="inputw310"> -->
+                </div>
+                <div class="input-group">
+                     <div class="pd" id="submitDiv">
+                         <div class="signup-button-wrap2 fl-left">
+                            <!-- <a style="cursor:pointer;">Sign Up Free</a> -->
+                            <button class="transparent" type="submit">
+                                <span>
+                                    Add Inmate
+                                </span>
+                            </button>                            
+                         </div>
+                         <div class="form-res" style="display: none;"></div>
+                         <div class="clearfix"></div>
+                     </div>
+                     <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+       </div>
+       <div class="clearfix"></div>
+    <?php echo form_close();?>
+</div>
+
+<div class="content-widget slideDiv" id="changePassDiv" style="display:none">
+    <?php echo form_open('updatePassword', array('id' => 'changePassForm','class'=>'signup horizontal-form')) ?>
+       <div class="components">
+            <div class="signup-title">
+                <h1>Change Password</h1>
+            </div>
+            <div class="spacer10"></div>
+            <div class="groups">                
+                <div class="input-group">
+                    <label>Current Password (contraseña actual)<font style="color:red;">*</font>:</label>
+                    <input type="password" placeholder="" name="current_pass" class="inputw310" minlength="8" maxlength="15">
+                </div>
+                <div class="input-group">
+                    <label>New Password (contraseña)<font style="color:red;">*</font>:</label>
+                    <input type="password" placeholder="" id="new_pass" name="new_pass" class="inputw310" minlength="8" maxlength="15">
+                </div>
+                <div class="input-group">
+                    <label>Confirm Password (Confirmar contraseña)<font style="color:red;">*</font>:</label>
+                    <input type="password" placeholder="" name="c_pass" class="inputw310" minlength="8" maxlength="15">
+                </div>
+                <div class="input-group">
+                     <div class="pd" id="">
+                     
+                         <div class="signup-button-wrap2 fl-left">
+                            <!-- <a style="cursor:pointer;">Sign Up Free</a> -->
+                            <button class="transparent" type="submit">
+                                <span>
+                                    Update
+                                </span>
+                            </button>                            
+                         </div>
+                         <div class="form-res" style="display: none;"></div>
+                         <div class="clearfix"></div>
+                     </div>
+                     <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+       </div>
+       <div class="clearfix"></div>
+    <?php echo form_close();?>
+</div>
+
+<div class="content-widget slideDiv" id="inmatesListDiv" style="display:none">
+   <div class="components">
+        <div class="signup-title">
+            <h1>Inmates List</h1>
+        </div>
+        <div class="spacer10"></div>
+        <div class="groups">
+            <?php if(!empty($inmates)) : ?>
+                <table id="example" class="display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Inmate Name</th>
+                            <th>Inmate Booking Number</th>
+                            <th>Facility</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>                  
+                    <tbody>
+                            <?php foreach ($inmates as $k => $v) :?>
+                                <tr>
+                                    <td><?php echo $v['inmates_name']?></td>
+                                    <td><?php echo $v['inmates_booking_no']?></td>
+                                    <td><?php echo $v['facility_name']?></td>
+                                    <td class="centerTd">
+                                        <a href="<?php echo base_url().'editInmate/'.$v['inmates_id']; ?>" class="btn-a">Edit</a>
+                                        <a class="btn-a remove_inmate" data-id="<?php echo $v['inmates_id']?>">Remove</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <div class="form-res"></div>
+            <?php else :?>
+                <span style="color:#fff; font-size:16px;">No Inmates Added.</span>
+            <?php endif ;?>    
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+   </div>
+   <div class="clearfix"></div>
+</div>
+
+<div class="content-widget slideDiv" id="ordersListDiv" style="display:none;">
+   <div class="components">
+        <div class="signup-title">
+            <h1>Sent Photo Orders</h1>
+        </div>
+        <div class="spacer10"></div>
+        <div class="groups">        
+            <?php if(!empty($sentPhotos)) :?>
+                <table id="photo_order_table" class="display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Inmate Name</th>                            
+                            <th>Facility</th>
+                            <th>No of Photos</th>
+                            <th>Amount</th>
+                            <th>sent Date</th>
+                            <th>Status</th>
+                            <!-- <th>Receipt</th> -->
+                        </tr>
+                    </thead>                  
+                    <tbody>
+                        <?php foreach ($sentPhotos as $k => $v) :?>
+                            <tr>
+                                <td><?php echo $v['inmates_name']?></td>
+                                <td><?php echo $v['facility_name']?></td>
+                                <td>
+                                    <a class="preview_photos" data-id="<?php echo $v['id']; ?>">
+                                        <?php echo $v['no_of_photos']?>
+                                    </a>
+                                </td>
+                                <td><?php echo $v['amount']?> USD</td>
+                                <td><?php echo $v['sent_date']?></td>
+                                <td>
+                                    <?php if($v['status'] == 1){ echo 'Received by Admin';} else if($v['status'] == 2){echo 'In Transit';} else { echo 'Delivered';}?>
+                                </td>
+                                <!-- <td> -->
+                                    <?php //if($v['invoice'] != ''){ ?>
+                                        <!-- <button type="button" data-src="<?php //echo base_url().'uploads/'.$v['sent_by'].'/invoice/'.$v['invoice']; ?>" class="fancybox view_invoice">
+                                            View
+                                        </button> -->
+                                    <?php //} ?>
+                                <!-- </td> -->
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else :?>
+                <span style="color:#fff; font-size:16px;">No Photos sent.</span>
+            <?php endif ;?>    
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+   </div>
+   <div class="clearfix"></div>
+</div>
+
+<div class="content-widget slideDiv" id="fundListDiv" style="display:none;">
+   <div class="components">
+        <div class="signup-title">
+            <h1>Sent Fund Orders</h1>
+        </div>
+        <div class="spacer10"></div>
+        <div class="groups">        
+            <?php if(!empty($sentFunds)) :?>                
+                <table id="fund_order_table" class="display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Inmate Name</th>                            
+                            <th>Facility</th>                            
+                            <th>Amount transferred</th>
+                            <th>Fees</th>
+                            <th>Total</th>
+                            <th>Sent Date</th>
+                            <th>Status</th>
+                            <th>Receipt</th>
+                        </tr>
+                    </thead>                  
+                    <tbody>
+                        <?php foreach ($sentFunds as $k => $v) :?>
+                            <?php if($v['unit'] == 1){
+                                    $fee = $v['fee'];
+                                }else{
+                                    $fee = number_format(($v['fee']/100)*$v['amount'],'1');                                    
+                                }                                
+                            ?>
+                            <tr>
+                                <td><?php echo $v['inmates_name']?></td>
+                                <td><?php echo $v['facility_name']?></td>
+                                <td><?php echo $v['original_amount'].' USD'; ?></td>
+                                <td><?php echo $v['processing_fees'].' USD'; ?></td>
+                                <td><?php echo $v['amount']?> USD</td>
+                                <td><?php echo $v['sent_date']?></td>
+                                <td>
+                                    <?php if($v['status'] == 1){ echo 'Received by Admin';} else if($v['status'] == 2){echo 'In Transit';} else { echo 'Delivered';}?>
+                                </td>
+                                <td>
+                                    <?php if($v['invoice'] != '' && !is_null($v['invoice'])){ ?>    
+                                        <button data-src="<?php echo base_url().'uploads/'.$v['paid_by'].'/invoice/'.$v['invoice']; ?>" class="fancybox view_invoice">View</button>
+                                    <?php }?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else :?>
+                <span style="color:#fff; font-size:16px;">No Fund sent.</span>
+            <?php endif ;?>    
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+   </div>
+   <div class="clearfix"></div>
+</div>
+<div class="fancybox overlay-container" id="alert" style="display:none;">
+    <div id="resetBox">
+        <h2>Are you Sure ? </h2>
+        <p style="color:black;">You can't recover the inmate once's deleted</p>        
+        <form action="<?php echo base_url();?>deleteInmate" method="post" role="form" id="delete_form" novalidate="novalidate" class="popup_form">            
+            <input type="hidden" name="del_inmate" id="del_inmate" />
+            <div class="signup-button-wrap2"> 
+                <span>                
+                    <button class="btn btn-highlight" type="button" id="cancel_btn" onclick="$.fancybox.close();"> Cancel </button>
+                </span>
+            </div>
+            <div class="signup-button-wrap2"> 
+                <span>                
+                    <button class="btn btn-highlight" type="submit" id=""> Delete Inmate </button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+<style type="text/css">
+    .form-res {
+        border-radius: 6px;
+        margin-left: 145px;
+        padding: 15px;
+        text-align: center;
+        width: 100%;
+        color: #ffffff !important;   
+    }
+    .form-res p {padding: 4px;}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+    $(document).on('click','.side-nav-title', function (){
+        $('.form-title').children().html($(this).html());
+    });
+
+    $(document).on('click','.view_invoice', function(){
+        var src = $(this).attr('data-src');
+        $.fancybox.open(src);
+        $('.fancybox-overlay').css('z-index','9999');
+    });
+
+    $(document).on('click','.remove_inmate',function(){
+        var id = $(this).data('id');
+        $('#del_inmate').val(id);
+        $.fancybox({ 
+            href : '#alert',
+            autoDimensions : false,
+            autoSize : false,
+            width : 330,
+            height : 'auto'
+        });
+    });
+
+});
+</script>

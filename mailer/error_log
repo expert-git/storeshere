@@ -1,0 +1,5 @@
+[14-Feb-2019 05:32:43 UTC] PHP Warning:  stream_socket_enable_crypto(): Peer certificate CN=`cloud.310mail.com' did not match expected CN=`mail.storeshere.com' in /home/storeshere/public_html/mailer/class.smtp.php on line 355
+[14-Feb-2019 05:33:45 UTC] PHP Warning:  stream_socket_enable_crypto(): Peer certificate CN=`cloud.310mail.com' did not match expected CN=`mail.storeshere.com' in /home/storeshere/public_html/mailer/class.smtp.php on line 355
+[14-Feb-2019 05:40:52 UTC] PHP Warning:  stream_socket_enable_crypto(): Peer certificate CN=`cloud.310mail.com' did not match expected CN=`mail.storeshere.com' in /home/storeshere/public_html/mailer/class.smtp.php on line 355
+[15-Feb-2019 06:30:40 UTC] PHP Warning:  stream_socket_enable_crypto(): Peer certificate CN=`cloud.310mail.com' did not match expected CN=`mail.storeshere.com' in /home/storeshere/public_html/mailer/class.smtp.php on line 355
+[15-Feb-2019 06:34:13 UTC] PHP Warning:  stream_socket_enable_crypto(): Peer certificate CN=`cloud.310mail.com' did not match expected CN=`mail.storeshere.com' in /home/storeshere/public_html/mailer/class.smtp.php on line 355
